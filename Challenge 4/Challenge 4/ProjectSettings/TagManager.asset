@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Powerup
+  - Wave Manager
+  - Player Goal
+  - Enemy Goal
   layers:
   - Default
   - TransparentFX
