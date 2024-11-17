@@ -24,6 +24,8 @@ public class WaveManagerX : MonoBehaviour
         waveText.gameObject.SetActive(false);
         instructionsText.text = "Knock soccer balls into the enemy goal to clear waves.\n" +
                                 "Don't let all soccer balls hit your goal, or you lose.\n" +
+                                "You can Collect Gems to Enhance Your Bounce Power.\n" +
+                                "You can also use the Left Shift Key to Turbo Boost.\n\n" +
                                 "Press SPACE to start.";
         Time.timeScale = 0f;
     }
