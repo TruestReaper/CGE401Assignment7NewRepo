@@ -382,7 +382,6 @@ MonoBehaviour:
     type: 3}
   waveText: {fileID: 1086019359}
   winText: {fileID: 1146723156}
-  loseText: {fileID: 1540900603}
   instructionsText: {fileID: 28724410}
   enemyCount: 0
   waveCount: 1
@@ -1515,13 +1514,28 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1231759665}
+  - component: {fileID: 1231759664}
   m_Layer: 0
-  m_Name: Wave Manager
-  m_TagString: Wave Manager
+  m_Name: Loss Condition
+  m_TagString: Loss Condition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!114 &1231759664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231759663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3981700eddabc44cad3903b9213f32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loseText: {fileID: 1540900603}
+  waveText: {fileID: 1086019359}
 --- !u!4 &1231759665
 Transform:
   m_ObjectHideFlags: 0
@@ -1879,6 +1893,7 @@ GameObject:
   - component: {fileID: 1566607645}
   - component: {fileID: 1566607644}
   - component: {fileID: 1566607643}
+  - component: {fileID: 1566607646}
   m_Layer: 0
   m_Name: Enemy Goal
   m_TagString: Enemy Goal
@@ -1959,6 +1974,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566607641}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1566607646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566607641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.2204466e-16, z: 10.000002}
+  m_Center: {x: 0, y: -0.0000038146973, z: 0.00000011920929}
 --- !u!1 &1609695579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2091,7 @@ GameObject:
   - component: {fileID: 2046577837}
   - component: {fileID: 2046577836}
   - component: {fileID: 2046577835}
+  - component: {fileID: 2046577838}
   m_Layer: 0
   m_Name: Player Goal
   m_TagString: Player Goal
@@ -2143,3 +2172,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046577833}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2046577838
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046577833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000005, y: 0.000002384186, z: 10.000002}
+  m_Center: {x: 0, y: -0.0000009536743, z: 0.00000011920929}

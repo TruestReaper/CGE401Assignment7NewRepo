@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/*
+* Name: John Chirayil
+* File: EnemyX.cs
+* CGE401 - Assignment 7 (Challenge 4)
+* Description: Controls the enemy AI in game.
+*/
+
+using UnityEngine;
 
 public class EnemyX : MonoBehaviour
 {
@@ -6,6 +13,7 @@ public class EnemyX : MonoBehaviour
     private Rigidbody enemyRb;
     private GameObject playerGoal;
     private SpawnManagerX spawnManagerX;
+    private LossConditionX lossConditionX;
 
     // Start is called before the first frame update
     void Start()
@@ -13,6 +21,7 @@ public class EnemyX : MonoBehaviour
         enemyRb = GetComponent<Rigidbody>();
         playerGoal = GameObject.Find("Player Goal");
         spawnManagerX = GameObject.Find("Spawn Manager").GetComponent<SpawnManagerX>();
+        lossConditionX = GameObject.Find("Loss Condition").GetComponent<LossConditionX>();
         speed = spawnManagerX.enemySpeed;
     }
 
@@ -30,10 +39,12 @@ public class EnemyX : MonoBehaviour
         // If enemy collides with either goal, destroy it
         if (other.gameObject.name == "Enemy Goal")
         {
+            lossConditionX.OnSoccerBallScored(true); // Ball scored in Enemy Goal
             Destroy(gameObject);
         }
         else if (other.gameObject.name == "Player Goal")
         {
+            lossConditionX.OnSoccerBallScored(false); // Ball scored in Player Goal
             Destroy(gameObject);
         }
 

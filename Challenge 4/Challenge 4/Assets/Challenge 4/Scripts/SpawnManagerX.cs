@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/*
+* Name: John Chirayil
+* File: SpawnManagerX.cs
+* CGE401 - Assignment 7 (Challenge 4)
+* Description: Manages when and where the 
+* player, enemies, and powerups spawn in-game.
+* Also manages wave count.
+*/
+
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
@@ -9,7 +18,6 @@ public class SpawnManagerX : MonoBehaviour
     public GameObject powerupPrefab;
     public Text waveText;
     public Text winText;
-    public Text loseText;
     public Text instructionsText;
 
     private float spawnRangeX = 10;
@@ -29,7 +37,6 @@ public class SpawnManagerX : MonoBehaviour
     {
         instructionsText.gameObject.SetActive(true);
         winText.gameObject.SetActive(false);
-        loseText.gameObject.SetActive(false);
         waveText.gameObject.SetActive(false);
         instructionsText.text = "Knock soccer balls into the enemy goal to clear waves.\n" +
                                 "Don't let all soccer balls hit your goal, or you lose.\n" +
@@ -100,6 +107,10 @@ public class SpawnManagerX : MonoBehaviour
 
         ResetPlayerPosition(); // put player back at start
         enemySpeed += 10;
+
+        // Reset stats for the wave
+        GameObject.Find("Loss Condition").GetComponent<LossConditionX>().ResetWaveStats(enemiesToSpawn);
+
     }
 
     // Move player back to position in front of own goal

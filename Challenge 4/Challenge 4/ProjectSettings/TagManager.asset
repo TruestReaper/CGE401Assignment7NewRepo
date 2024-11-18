@@ -9,6 +9,7 @@ TagManager:
   - Wave Manager
   - Player Goal
   - Enemy Goal
+  - Loss Condition
   layers:
   - Default
   - TransparentFX

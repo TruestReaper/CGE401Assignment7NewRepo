@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+* Name: John Chirayil
+* File: RotateCameraX.cs
+* CGE401 - Assignment 7 (Challenge 4)
+* Description: Allows the player to rotate
+* their camera in game.
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
