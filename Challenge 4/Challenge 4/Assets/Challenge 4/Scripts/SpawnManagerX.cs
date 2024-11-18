@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class SpawnManagerX : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject powerupPrefab;
+    public Text waveText;
+    public Text winText;
+    public Text loseText;
+    public Text instructionsText;
 
     private float spawnRangeX = 10;
     private float spawnZMin = 15; // set min spawn Z
@@ -15,15 +22,53 @@ public class SpawnManagerX : MonoBehaviour
 
     public GameObject player;
 
+    private bool gameActive = false;
+    private bool gameOver = false;
+
+    void Start()
+    {
+        instructionsText.gameObject.SetActive(true);
+        winText.gameObject.SetActive(false);
+        loseText.gameObject.SetActive(false);
+        waveText.gameObject.SetActive(false);
+        instructionsText.text = "Knock soccer balls into the enemy goal to clear waves.\n" +
+                                "Don't let all soccer balls hit your goal, or you lose.\n" +
+                                "You can Collect Gems to Enhance Your Bounce Power.\n" +
+                                "You can also use the Left Shift Key to Turbo Boost.\n\n" +
+                                "Press SPACE to start.";
+        Time.timeScale = 0f;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
-        if (enemyCount == 0)
+        if (!gameActive && Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject.Find("Wave Manager").GetComponent<WaveManagerX>().OnWaveComplete();
-            SpawnEnemyWave(waveCount);
+            StartGame();
+        }
+
+        if (gameActive && !gameOver)
+        {
+            enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+            if (enemyCount == 0)
+            {
+                if (waveCount < 10)
+                {
+                    waveCount++;
+                    waveText.text = "Wave: " + waveCount;
+                    SpawnEnemyWave(waveCount);
+                }
+                else
+                {
+                    WinGame();
+                }
+            }
+        }
+
+        if (gameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            RestartGame();
         }
 
     }
@@ -37,7 +82,7 @@ public class SpawnManagerX : MonoBehaviour
     }
 
 
-    void SpawnEnemyWave(int enemiesToSpawn)
+    public void SpawnEnemyWave(int enemiesToSpawn)
     {
         Vector3 powerupSpawnOffset = new Vector3(0, 0, -15); // make powerups spawn at player end
 
@@ -53,9 +98,8 @@ public class SpawnManagerX : MonoBehaviour
             Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
         }
 
-        waveCount++;
         ResetPlayerPosition(); // put player back at start
-        enemySpeed += 25;
+        enemySpeed += 10;
     }
 
     // Move player back to position in front of own goal
@@ -67,4 +111,34 @@ public class SpawnManagerX : MonoBehaviour
 
     }
 
+    private void StartGame()
+    {
+        instructionsText.gameObject.SetActive(false);
+        waveText.gameObject.SetActive(true);
+        waveText.text = "Wave: " + waveCount;
+        SpawnEnemyWave(waveCount);
+        Time.timeScale = 1f;
+        gameActive = true;
+    }
+
+    private void WinGame()
+    {
+        gameOver = true;
+        winText.gameObject.SetActive(true);
+        winText.text = "You Win! Press R to Restart.";
+        Time.timeScale = 0f; // Freeze game
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene("Challenge 4");
+        waveCount = 1;
+        gameOver = false;
+        gameActive = false;
+        waveText.gameObject.SetActive(false);
+        winText.gameObject.SetActive(false);
+        instructionsText.gameObject.SetActive(true);
+        Time.timeScale = 0;
+        waveText.text = "";
+    }
 }

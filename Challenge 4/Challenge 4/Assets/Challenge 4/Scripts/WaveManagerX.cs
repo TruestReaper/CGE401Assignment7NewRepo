@@ -84,7 +84,7 @@ public class WaveManagerX : MonoBehaviour
         // Called when a wave is completed (e.g., no enemies left on the field)
         if (spawnManager.waveCount <= 10)
         {
-            spawnManager.waveCount++;
+            //spawnManager.waveCount++;
             UpdateWaveText();
         }
     }
